@@ -1,6 +1,7 @@
-const express = require("express");
-const Workouts = require("../models/workoutSchema");
-const router = express.Router();
+import { Router } from "express";
+import Workouts from "../models/workoutSchema.js";
+const router = Router();
+import createWorkout from "../controller/WorkoutController.js";
 
 //GET
 router.get("/", (req, res) => {
@@ -13,18 +14,7 @@ router.get("/:id", (req, res) => {
 });
 
 //POST
-router.post("/", async (req, res) => {
-  const { title, reps, comment, body } = req.body;
-
-  try {
-    const workout = await Workouts.create({ title, reps, comment, body });
-    res.status(200).json(workout);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-
-  res.json({ msg: "POST new workout" });
-});
+router.post("/", createWorkout);
 
 //DELETE
 router.delete("/:id", (req, res) => {
@@ -36,4 +26,4 @@ router.patch("/:id", (req, res) => {
   res.json({ msg: "EDIT workout" });
 });
 
-module.exports = router;
+export default router;

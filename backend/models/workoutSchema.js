@@ -1,16 +1,16 @@
-const mongoose = require("mongoose");
+import { Schema as _Schema, model } from "mongoose";
 
-const Schema = mongoose.Schema;
+const Schema = _Schema;
 
 const workoutSchema = new Schema(
   {
     title: {
       type: String,
-      required: true,
+      required: [true, "Your Obj needs a Title!"],
     },
-    reps: {
+    date: {
       type: Number,
-      required: true,
+      required: [true, "Please enter day from Mon-Sun"],
     },
     body: {
       type: String,
@@ -24,4 +24,4 @@ const workoutSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Workout", workoutSchema);
+export default model("Workout", workoutSchema);
